@@ -1,8 +1,8 @@
 const app = require('./app');
-const http = require('http').createServer(app);
-const io = require( "socket.io" )( http );
 
-http.listen( 8080, () => console.log( 'port', '8080' ));
+const server  = app.listen( 8080, () => console.log( 'port', '8080' ));
+
+io = require( "socket.io" )( server );
 
 
 io.of('message')

@@ -42,9 +42,8 @@ function Register() {
             text={text}
             setText={setText}
             hasErrors={exists}
-            setError={setError}
-            
-          />
+            setError={setError}/>
+
           <Box mt={3}>
             <Grid align="center">
               <Button
@@ -61,7 +60,7 @@ function Register() {
               </Button>
               <Box mt={2}>
                 <Button color="primary" onClick={
-                    () => history.push('/login')
+                    () => history.push('/')
                 }>Already have an account?</Button>
               </Box>
 

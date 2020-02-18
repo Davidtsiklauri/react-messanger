@@ -1,5 +1,4 @@
 class AuthService {
-  constructor() {}
 
   getUser() {
     return JSON.parse(localStorage.getItem("user"));

@@ -35,7 +35,7 @@ function Login() {
                 color="primary"
                 type="button"
                 onClick={() => {
-                    login(text, setError, history);
+                    login(text.trim(), setError, history);
                 }}>
                 Login
               </Button>
@@ -52,6 +52,7 @@ function Login() {
   );
 }
 function login (userName, setError, history) {
+  if(!userName) return;
   axios.post("/api/user/login",{ userName })
       .then(({data}) => {
              AuthService.setUser(data);

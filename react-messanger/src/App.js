@@ -14,12 +14,12 @@ import { Route,
   } from "react-router-dom";
 
 function App() {
-  
-  const [isAuth, setState] = useState(AuthService.isauthenticated());
+  const isauthenticated = AuthService.isauthenticated();
+  const [isAuth, setState] = useState(isauthenticated);
   
   useEffect( () => {
-       setState(AuthService.isauthenticated())
-  }, [AuthService.isauthenticated()])
+       setState( isauthenticated )
+  }, [isauthenticated])
 
   
   // const socket = io('http://localhost:8080/message');

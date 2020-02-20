@@ -3,26 +3,57 @@ import LeftSide from './components/LeftSide';
 import RightSide from './components/RightSide';
 import CenterContent from './components/CenterContent';
 import Grid from "@material-ui/core/Grid";
+import Header from './components/components/header';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import authService from '../../api/auth.service';
+import { useHistory } from "react-router-dom";
 
 
 function Chat() {
+
+  const userName =  authService.getUser()['userName']
+  const history = useHistory();
+
   return (
-    <Grid container direction='row'>
-      
-      <Grid item sm={12} xs={12} md={4}>
-        <LeftSide/>
-      </Grid>
-      
-      <Grid item sm={12} xs={12} md={4}>
-        <RightSide/>
-      </Grid>
+    <>
+        <Header>
+               <Box display="flex" justifyContent="space-between" alignItems="center" pl={2} pr={2}> 
+                       <h2 style={{ color: 'white' }}>React Chat</h2>
+                       <div>
+                               <Button  style={{ color: 'white' }} disabled >  { userName }  </Button>  
+                               <span style={{ color: 'white'}}>|</span> 
+                               <Button  style={{ color: 'white' }} 
+                                      onClick={  () => {
+                                                logOut(history);
+                                      }  }
+                               >Logout</Button>
+                       </div>
+                </Box>   
+        </Header>
+        
+        <Grid container direction='row'>
+          
+          <Grid item sm={12} xs={12} md={3}>
+            <LeftSide/>
+          </Grid>
+          
+          <Grid item sm={12} xs={12} md={6}>
+            <RightSide/>
+          </Grid>
 
-      <Grid item sm={12} xs={12} md={4}>
-        <CenterContent/>
-      </Grid>
+          <Grid item sm={12} xs={12} md={3}>
+            <CenterContent/>
+          </Grid>
 
-    </Grid>
+        </Grid>
+    </>
   );
 }
+
+function logOut( history  ) {
+           history.push('/');
+           authService.logOut();
+};
 
 export default Chat;

@@ -8,9 +8,10 @@ import Button from "@material-ui/core/Button";
 import UploadAvatar from "../shared/UploadAvatar";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import AuthService from "../../Services/auth.service";
+import AuthService from "../../api/auth.service";
 
-function Register() {    
+function Register() {
+      
   const [text, setText] = useState("");
   const [avatar, setAvatar] = useState({ file: "", blob: {} });
   const [exists, setError] = useState(false);

@@ -31,22 +31,29 @@ function Chat() {
                        </div>
                 </Box>   
         </Header>
-        
+        <Box p={2}>
         <Grid container direction='row'>
           
-          <Grid item sm={12} xs={12} md={3}>
-            <LeftSide/>
+          <Grid item sm={12} xs={12} md={2} >
+            <Box pr={3}>
+                <LeftSide/>
+            </Box>
           </Grid>
           
-          <Grid item sm={12} xs={12} md={6}>
-            <RightSide/>
+          <Grid item sm={12} xs={12} md={7}>
+              <Box pr={3}>
+                <CenterContent/>
+              </Box>
           </Grid>
 
           <Grid item sm={12} xs={12} md={3}>
-            <CenterContent/>
+              <Box pr={3}>
+                  <RightSide/>
+              </Box>
           </Grid>
 
         </Grid>
+        </Box>
     </>
   );
 }

@@ -5,7 +5,7 @@ import Login from "./Components/Login/login";
 
 import Chat from "./Components/Chat/Chat";
 import AuthService from './api/auth.service';
-import AuthenticatedRoute from './Components/shared/AuthenticatedRoute';
+import AuthenticatedRoute from './Components/shared/Components/AuthenticatedRoute';
 
 
 import { 

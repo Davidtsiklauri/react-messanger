@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "../../assets/img/default.png";
+import logo from "../../../assets/img/default.png";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles(theme => ({
@@ -30,8 +30,7 @@ export function UploadAvatar(props) {
         }}
         id="upload"
         style={{ display: "none" }}
-        accept="image/png, image/jpeg"
-      ></input>
+        accept="image/png, image/jpeg"></input>
       <label htmlFor="upload">
         <Tooltip title="Upload  image">
           <Avatar

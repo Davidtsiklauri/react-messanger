@@ -8,6 +8,10 @@ class AuthService {
     if (user) {
       return localStorage.setItem("user", JSON.stringify(user));
     }
+  };
+
+  getUserId() {
+      return JSON.parse(localStorage.getItem('user'))['_id'];
   }
 
   isauthenticated() {

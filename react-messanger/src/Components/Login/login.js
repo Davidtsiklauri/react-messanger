@@ -2,7 +2,7 @@ import React, {  useState  } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Input from "../shared/Input";
+import Input from "../shared/Components/Input";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
@@ -26,7 +26,6 @@ function Login() {
           <Input
             label={"User Name"}
             error={"Wrong userName"}
-            text={text}
             setText={setText}
             hasErrors={wrongCreditinals}
             setError={setError}

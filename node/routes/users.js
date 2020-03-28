@@ -13,7 +13,8 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+      return res.status(422)
+                .json({ errors: errors.array() });
     }
     const { file, body } = req;
 
@@ -51,6 +52,22 @@ router.post('/user/login', async ( req, res ) => {
      } else {
         res.status(401).json('Wrong creditinals');
      }          
-})
+});
+
+
+router.get('/user/search', async ( req, res ) => {
+        const { query } = req.query,
+              { token } = req.headers;
+
+        if( !token ) {
+            res.status(404).send('not authorized');
+        };
+
+        const users = await UserSchema.find( { userName: query } , ( err, users ) => {
+              users.filter( user => user._id !== token );
+        });
+        
+        res.status(200).send(users);
+});
 
 module.exports = router;

@@ -9,7 +9,7 @@ function ChanellsBox({ isActive }) {
 
      return (
            <div className={  `box-channel  box-channel-active ` }>
-                  < Box  pl={2} pr={2}  color="primary" display="flex" alignItems="center" >
+                  <Box  pl={2} pr={2}  color="primary" display="flex" alignItems="center" >
                             <UserAvatar></UserAvatar>
                               <Box pl={3}>
                                     <Typography variant="body1" >

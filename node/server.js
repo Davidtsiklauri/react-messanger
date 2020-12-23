@@ -1,21 +1,16 @@
-const app = require('./app'),
-      db = require('config').get('mongoURI'),
-      server  = app.listen( 8080, () => console.log( 'port', '8080' )),
-      mongoose = require('mongoose')
+const app = require("./app"),
+  mongoose = require("mongoose"),
+  secret =
+    "mongodb+srv://gira1234:KNWrgdVjUSXdqTKv@cluster0.8fgut.mongodb.net/test";
 
-// db    
+app.listen(8080, () => console.log("port", "8080"));
+
 mongoose
-.connect(db, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, autoIndex: false })
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err))
-      
-// Sockets    
-io = require( "socket.io" )( server );
-
-io.of('message')
-    .on('connection',function(socket){ 
-        console.log('connected'); 
-        socket.on('onMessage', ( data ) => {
-            io.emit( 'recive', data )
-        })
-});
+  .connect(secret, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    autoIndex: false,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));

@@ -1,4 +1,4 @@
-import React, {  useState  } from "react";
+import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -6,16 +6,15 @@ import Input from "../shared/Components/Input";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
-import AuthService from '../../api/auth.service';
-  
+import axios from "axios";
+import AuthService from "../../api/auth.service";
 
-function Login() {    
+function Login() {
   const [text, setText] = useState("");
   const [wrongCreditinals, setError] = useState(false);
 
-  const history = useHistory();  
-  
+  const history = useHistory();
+
   return (
     <Grid container justify="center">
       <Box mt={3}>
@@ -37,14 +36,18 @@ function Login() {
                 color="primary"
                 type="button"
                 onClick={() => {
-                    login(text.trim(), setError, history);
-                }}>
+                  login(text.trim(), setError, history);
+                }}
+              >
                 Login
               </Button>
               <Box mt={2}>
-                 <Button color="secondary" onClick={
-                      () => history.push('/register')
-                 }>Don`t have an account ? </Button>
+                <Button
+                  color="secondary"
+                  onClick={() => history.push("/register")}
+                >
+                  Don`t have an account ?{" "}
+                </Button>
               </Box>
             </Grid>
           </Box>
@@ -53,16 +56,17 @@ function Login() {
     </Grid>
   );
 }
-function login (userName, setError, history) {
-  if(!userName) return;
-  axios.post("/api/user/login",{ userName })
-      .then(({data}) => {
-             AuthService.setUser(data);
-             history.push('/chat');
-      })
-      .catch(err => {                
-            setError(true);
-      });
-};
+function login(userName, setError, history) {
+  if (!userName) return;
+  axios
+    .post("/api/user/login", { userName })
+    .then(({ data }) => {
+      AuthService.setUser(data);
+      history.push("/chat");
+    })
+    .catch((err) => {
+      setError(true);
+    });
+}
 
 export default Login;

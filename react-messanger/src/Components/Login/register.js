@@ -11,7 +11,6 @@ import { useHistory } from "react-router-dom";
 import AuthService from "../../api/auth.service";
 
 function Register() {
-      
   const [text, setText] = useState("");
   const [avatar, setAvatar] = useState({ file: "", blob: {} });
   const [exists, setError] = useState(false);
@@ -20,10 +19,11 @@ function Register() {
   // Validate if userName already exts by db call
   useEffect(() => {
     if (text.length > 1) {
-        axios.get("/api/validations", { params: text })
-            .then(({ data }) => setError(data.exists))
-            .catch(err => console.log(err));
-    } 
+      axios
+        .get("/api/validations", { params: text })
+        .then(({ data }) => setError(data.exists))
+        .catch((err) => console.log(err));
+    }
   }, [text]);
 
   return (
@@ -43,7 +43,8 @@ function Register() {
             text={text}
             setText={setText}
             hasErrors={exists}
-            setError={setError}/>
+            setError={setError}
+          />
 
           <Box mt={3}>
             <Grid align="center">
@@ -60,11 +61,10 @@ function Register() {
                 Register
               </Button>
               <Box mt={2}>
-                <Button color="primary" onClick={
-                    () => history.push('/')
-                }>Already have an account?</Button>
+                <Button color="primary" onClick={() => history.push("/")}>
+                  Already have an account?
+                </Button>
               </Box>
-
             </Grid>
           </Box>
         </Container>
@@ -74,16 +74,15 @@ function Register() {
 }
 
 function submit(text, { blob }, setError, history) {
-    console.log(AuthService);
-    
   const formData = new FormData();
   formData.append("avatar", blob);
   formData.append("text", text.trim());
-  axios.post("/api/user/register", formData, {
-        headers: { "content-type": "multipart/form-data" }
+  axios
+    .post("/api/user/register", formData, {
+      headers: { "content-type": "multipart/form-data" },
     })
-    .then(data => handleOnResponse(data, history))
-    .catch(err => handleOnError(err.response, setError));
+    .then((data) => handleOnResponse(data, history))
+    .catch((err) => handleOnError(err.response, setError));
 }
 
 function handleOnResponse({ data }, history) {
@@ -93,7 +92,7 @@ function handleOnResponse({ data }, history) {
 
 function handleOnError({ data }, setError) {
   const { errors } = data;
-  errors.map(err => console.log(err));
+  errors.map((err) => console.log(err));
 }
 
 export default Register;

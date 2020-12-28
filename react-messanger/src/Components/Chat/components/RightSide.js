@@ -12,7 +12,7 @@ function RightSide() {
   useEffect(() => {
     if (text.length >= 1) {
       axios
-        .get("api/user/search", {
+        .get("/api/user/search", {
           params: { query: text },
         })
         .then(({ data }) => setUsers(data))

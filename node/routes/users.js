@@ -76,9 +76,12 @@ router.get("/user/search", async (req, res) => {
 router.post("/user/friends/:userId", async (req, res) => {
   const { userId } = req.params,
     { token } = req.headers;
-  const user = await UserSchema.findOne({ _id: token });
-  await user.friends_ids.push({ friend_id: userId });
-  await user.save();
+  const sender = await UserSchema.findOne({ _id: token });
+  const accepter = await UserSchema.findOne({ _id: userId });
+  sender.friends_ids.push({ friend_id: userId });
+  accepter.friends_ids.push({ friend_id: token });
+  sender.save();
+  accepter.save();
   res.status(200).send({ type: "success" });
 });
 
@@ -87,8 +90,11 @@ router.get("/user/friends", async (req, res) => {
   const user = await UserSchema.findOne({ _id: token });
   const friends_ids = user.friends_ids;
   const userPromise = friends_ids.map(async ({ friend_id }) => {
-    const friend = await UserSchema.findOne({ _id: friend_id });
-    return friend;
+    const friendDB = await UserSchema.findOne({ _id: friend_id }).lean();
+    const friend_ids = friendDB.friends_ids;
+    const friend = friend_ids.filter(({ friend_id }) => friend_id === token)[0];
+    delete friendDB.friends_ids;
+    return { ...friendDB, conversationId: friend.conversationId };
   });
   res.status(200).send(await Promise.all(userPromise));
 });

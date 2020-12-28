@@ -16,7 +16,7 @@ function ChanellsBox({ isActive }) {
   return (
     <>
       {friendList.map((user) => (
-        <div className={`box-channel  box-channel-active `} key={user._id}>
+        <div className={`box-channel  box-channel-active `} key={user._id} onClick={() => navigateOnMessage(user)}>
           <Box pl={2} pr={2} color="primary" display="flex" alignItems="center">
             <UserAvatar fileUrl={user.avatar.name}></UserAvatar>
             <Box pl={1}>
@@ -27,6 +27,10 @@ function ChanellsBox({ isActive }) {
       ))}
     </>
   );
+
+  function navigateOnMessage(user) {
+    console.log(user);
+  }
 }
 
 export default ChanellsBox;

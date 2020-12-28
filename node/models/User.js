@@ -16,10 +16,18 @@ const user = new userSchema({
     required: true,
     dropDups: true,
   },
-  friends_ids: [{ friend_id: {
-      type: String,
-      required: true
-  } }],
+  friends_ids: [
+    {
+      friend_id: {
+        type: String,
+        required: true,
+      },
+      conversationId: {
+        type: mongoose.Types.ObjectId,
+        auto: true,
+      },
+    },
+  ],
   created_at: { type: Date, default: Date.now },
 });
 

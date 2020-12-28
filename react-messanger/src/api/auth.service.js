@@ -1,5 +1,4 @@
 class AuthService {
-
   getUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
@@ -8,10 +7,12 @@ class AuthService {
     if (user) {
       return localStorage.setItem("user", JSON.stringify(user));
     }
-  };
+  }
 
   getUserId() {
-      return JSON.parse(localStorage.getItem('user'))['_id'];
+    if (localStorage.getItem("user")) {
+      return JSON.parse(localStorage.getItem("user"))["_id"];
+    }
   }
 
   isauthenticated() {
@@ -24,7 +25,6 @@ class AuthService {
   logOut() {
     return localStorage.removeItem("user");
   }
-  
 }
 
 export default new AuthService();

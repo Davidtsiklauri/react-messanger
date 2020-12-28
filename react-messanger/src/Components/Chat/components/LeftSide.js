@@ -11,7 +11,6 @@ function LeftSide() {
       </Box>
       <Box mt={2}>
         <ChannelBox></ChannelBox>
-        <ChannelBox isActive></ChannelBox>
       </Box>
     </>
   );

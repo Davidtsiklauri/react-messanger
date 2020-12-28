@@ -4,17 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../../assets/img/default.png";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     "& > *": {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
   },
   large: {
     width: theme.spacing(9),
-    height: theme.spacing(9)
-  }
+    height: theme.spacing(9),
+  },
 }));
 
 export function UploadAvatar(props) {
@@ -25,12 +25,13 @@ export function UploadAvatar(props) {
     <>
       <input
         type="file"
-        onChange={e => {
+        onChange={(e) => {
           uploadFile(e, setAvatar);
         }}
         id="upload"
         style={{ display: "none" }}
-        accept="image/png, image/jpeg"></input>
+        accept="image/png, image/jpeg"
+      ></input>
       <label htmlFor="upload">
         <Tooltip title="Upload  image">
           <Avatar

@@ -70,17 +70,27 @@ router.get("/user/search", async (req, res) => {
 
 /**
  * @POST
- *
+ * ADD friends
  */
 
 router.post("/user/friends/:userId", async (req, res) => {
   const { userId } = req.params,
     { token } = req.headers;
-  console.log(userId);
   const user = await UserSchema.findOne({ _id: token });
-  user.friends_ids.push(userId);
-  user.save();
-  res.status(200).send(user);
+  await user.friends_ids.push({ friend_id: userId });
+  await user.save();
+  res.status(200).send({ type: "success" });
+});
+
+router.get("/user/friends", async (req, res) => {
+  const { token } = req.headers;
+  const user = await UserSchema.findOne({ _id: token });
+  const friends_ids = user.friends_ids;
+  const userPromise = friends_ids.map(async ({ friend_id }) => {
+    const friend = await UserSchema.findOne({ _id: friend_id });
+    return friend;
+  });
+  res.status(200).send(await Promise.all(userPromise));
 });
 
 module.exports = router;

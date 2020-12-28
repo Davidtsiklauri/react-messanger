@@ -58,9 +58,11 @@ function Login() {
 }
 function login(userName, setError, history) {
   if (!userName) return;
+ 
   axios
     .post("/api/user/login", { userName })
     .then(({ data }) => {
+      console.log(data);
       AuthService.setUser(data);
       history.push("/chat");
     })

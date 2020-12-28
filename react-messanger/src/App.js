@@ -23,6 +23,7 @@ function App() {
       convId: "4234324",
     },
   });
+
   socket.emit("message", { gia: "gia", convId: "4234324" });
   socket.emit("message", { gia: "gia", convId: "4234324" });
   socket.emit("message", { gia: "gia", convId: "4234324" });
@@ -44,6 +45,13 @@ function App() {
           path="/"
           exact={true}
           rederict="/chat"
+        />
+
+        <AuthenticatedRoute
+          component={Chat}
+          isAuth={isAuth}
+          path="/chat/:id"
+          exact={true}
         />
 
         <AuthenticatedRoute

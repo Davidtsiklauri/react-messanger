@@ -3,7 +3,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Input from "../../../Components/shared/Components/Input";
 import axios from "axios";
-import authService from "../../../api/auth.service";
 import CustomList from "../../shared/Components/List";
 
 function RightSide() {
@@ -15,7 +14,6 @@ function RightSide() {
       axios
         .get("api/user/search", {
           params: { query: text },
-          headers: { token: authService.getUserId() },
         })
         .then(({ data }) => setUsers(data))
         .catch((err) => console.log(err));
@@ -35,7 +33,7 @@ function RightSide() {
       </Box>
 
       <Box mt={3}>
-        <Input label="Type Name to Find user" setText={setText} />
+        <Input label="search" setText={setText} />
       </Box>
 
       <Box mt={1}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LeftSide from "./components/LeftSide";
 import RightSide from "./components/RightSide";
 import CenterContent from "./components/CenterContent";
@@ -9,9 +9,14 @@ import Button from "@material-ui/core/Button";
 import authService from "../../api/auth.service";
 import { useHistory } from "react-router-dom";
 
+import { useParams } from "react-router-dom";
+
 function Chat() {
   const userName = authService.getUser()["userName"];
   const history = useHistory();
+  const { id } = useParams();
+
+  useEffect(() => {}, id);
 
   return (
     <>

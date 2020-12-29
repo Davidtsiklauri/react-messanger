@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
 import Register from "./Components/Login/register";
 import Login from "./Components/Login/login";
 
@@ -16,18 +15,6 @@ function App() {
   useEffect(() => {
     setState(isauthenticated);
   }, [isauthenticated]);
-
-  const socket = io("http://localhost:3300", {
-    transports: ["websocket"],
-    query: {
-      convId: "4234324",
-    },
-  });
-
-  socket.emit("message", { gia: "gia", convId: "4234324" });
-  socket.emit("message", { gia: "gia", convId: "4234324" });
-  socket.emit("message", { gia: "gia", convId: "4234324" });
-  socket.emit("message", { gia: "gia", convId: "4234324 " });
 
   return (
     <>

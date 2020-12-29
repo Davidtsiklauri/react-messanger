@@ -8,15 +8,18 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import authService from "../../api/auth.service";
 import { useHistory } from "react-router-dom";
-
 import { useParams } from "react-router-dom";
+import { SocketHelper } from "../../utilities/socketHelper";
 
 function Chat() {
   const userName = authService.getUser()["userName"];
   const history = useHistory();
   const { id } = useParams();
+  const socketInstance = SocketHelper.getInstance();
 
-  useEffect(() => {}, id);
+  useEffect(() => {
+    socketInstance.initSocketConnection(id);
+  }, [id]);
 
   return (
     <>
@@ -56,7 +59,7 @@ function Chat() {
 
           <Grid item sm={12} xs={12} md={7}>
             <Box pr={3}>
-              <CenterContent />
+              <CenterContent convId={id} />
             </Box>
           </Grid>
 

@@ -1,4 +1,5 @@
-const SocketLib = require("socket.io");
+const SocketLib = require("socket.io"),
+  messgsSchema = require("../models/Messages.js");
 
 class SocketHelper {
   socket = null;
@@ -25,6 +26,11 @@ class SocketHelper {
       }
       sock.on("message", (mssg) => {
         if (this.messagesMap.get(mssg.convId)) {
+          const newMessage = new messgsSchema({
+            message: mssg.message,
+            convId: mssg.convId,
+          });
+          newMessage.save();
           sock.emit("message", mssg);
         }
       });

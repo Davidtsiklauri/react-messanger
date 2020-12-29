@@ -1,4 +1,6 @@
-export default class SocketHelper {
+import io from "socket.io-client";
+
+export class SocketHelper {
   static socketHelperIntance = null;
   /**
    * @returns {SocketHelper}
@@ -10,16 +12,19 @@ export default class SocketHelper {
     return this.socketHelperIntance;
   }
 
+  /**
+   * @private
+   */
   socket = null;
 
-  initSocket(connectionId) {
-    if (socket) {
-      this.closeConnection()
+  initSocketConnection(connectionId) {
+    if (this.socket) {
+      this.closeConnection();
     } else {
       this.socket = io("http://localhost:3300", {
         transports: ["websocket"],
         query: {
-          connectionId,
+          convId: connectionId,
         },
       });
     }
@@ -27,8 +32,36 @@ export default class SocketHelper {
 
   closeConnection() {
     if (this.socket) {
-      this.sock.disconnect();
+      this.socket.disconnect();
       this.socket = null;
     }
+  }
+
+  sendMessage(data) {
+    this.emitEvent("message", data);
+  }
+
+  sendTypingEvent(event) {
+    this.emitEvent("typing");
+  }
+
+  /**
+   * @private
+   */
+  emitEvent(event, data = null) {
+    if (this.socket) {
+      this.socket.emit(event, data);
+    }
+  }
+}
+
+export class MessageData {
+  name;
+  message;
+  convId;
+  constructor(name, message, convId) {
+    this.name = name || null;
+    this.message = message || null;
+    this.convId = convId || null;
   }
 }

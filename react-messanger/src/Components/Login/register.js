@@ -39,7 +39,7 @@ function Register() {
             </Grid>
           </Box>
           <Input
-            label={"User Name"}
+            label={"User Namwe"}
             text={text}
             setText={setText}
             hasErrors={exists}

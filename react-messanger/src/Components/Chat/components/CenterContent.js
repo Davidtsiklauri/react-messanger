@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import { SocketHelper, MessageData } from "../../../utilities/socketHelper";
 
-function CenterContent({ convId }) {
+function CenterContent({ messages, convId }) {
   const socketInstance = SocketHelper.getInstance();
   const ref = React.createRef();
 
@@ -19,8 +19,9 @@ function CenterContent({ convId }) {
       </Box>
       <div className="chat">
         <Box height="75%" className="chat__box">
-          <ChatBox></ChatBox>
-          <ChatBox></ChatBox>
+          {messages.map((mssg) => (
+            <ChatBox key={mssg.id}></ChatBox>
+          ))}
         </Box>
         <Box height="25%" mt={3}>
           <FormControl fullWidth variant="outlined">
@@ -50,7 +51,7 @@ function CenterContent({ convId }) {
   );
 
   function sendMessage(value) {
-    socketInstance.sendMessage(new MessageData(value, "david", convId));
+    socketInstance.sendMessage(new MessageData("david", value, convId));
   }
 }
 

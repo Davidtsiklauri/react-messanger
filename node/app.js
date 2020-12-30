@@ -3,6 +3,7 @@ const express = require("express"),
   app = express(),
   userRoute = require("./routes/users"),
   uploadsRoute = require("./routes/upload"),
+  messagesRoute = require("./routes/messages"),
   socket = require("./socket/socketHelper"),
   validations = require("./routes/validations"),
   bodyParser = require("body-parser");
@@ -15,6 +16,7 @@ app.use(logger("dev"));
 // middleware;
 
 app.use("/api", userRoute);
+app.use("/api", messagesRoute);
 app.use("/api", validations);
 // app.use("/api", message);
 

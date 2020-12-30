@@ -28,6 +28,7 @@ export class SocketHelper {
         },
       });
     }
+    this.getMessages().then((data) => console.log(data));
   }
 
   closeConnection() {
@@ -43,6 +44,16 @@ export class SocketHelper {
 
   sendTypingEvent(event) {
     this.emitEvent("typing");
+  }
+
+  getMessages() {
+    return new Promise((resolve, reject) => {
+      this.socket.on("messages", (data) => {
+        resolve(data);
+      });
+      resolve("dasdsa");
+      resolve("sadsa");
+    });
   }
 
   /**

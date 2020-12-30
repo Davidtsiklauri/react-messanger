@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LeftSide from "./components/LeftSide";
 import RightSide from "./components/RightSide";
 import CenterContent from "./components/CenterContent";
@@ -10,15 +10,21 @@ import authService from "../../api/auth.service";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { SocketHelper } from "../../utilities/socketHelper";
+import axios from "axios";
 
 function Chat() {
   const userName = authService.getUser()["userName"];
   const history = useHistory();
   const { id } = useParams();
+  const [messages, setMessages] = useState([]);
   const socketInstance = SocketHelper.getInstance();
 
   useEffect(() => {
     socketInstance.initSocketConnection(id);
+    axios
+      .get(`/api/messages/${id}`)
+      .then(({ data }) => data)
+      .then((messages) => setMessages(messages));
   }, [id]);
 
   return (
@@ -59,7 +65,7 @@ function Chat() {
 
           <Grid item sm={12} xs={12} md={7}>
             <Box pr={3}>
-              <CenterContent convId={id} />
+              <CenterContent messages={messages} convId={id} />
             </Box>
           </Grid>
 

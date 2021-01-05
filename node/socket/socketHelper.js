@@ -19,19 +19,21 @@ class SocketHelper {
   }
 
   setActiveListeners() {
-    this.io.on("connection", (sock) => {
-      const { convId } = sock.handshake.query;
+    this.io.on("connection", (socket) => {
+      const { convId } = socket.handshake.query;
       if (convId) {
         this.messagesMap.set(convId, convId);
       }
-      sock.on("message", (mssg) => {
+      socket.join(convId);
+      socket.on("message", (mssg) => {
+        const mss = { ...mssg, date: new Date() };
+        this.io.to(this.messagesMap.get(mssg.convId)).emit("message", mss);
         if (this.messagesMap.get(mssg.convId)) {
           const newMessage = new messgsSchema({
             message: mssg.message,
             convId: mssg.convId,
           });
           newMessage.save();
-          sock.emit("message", mssg);
         }
       });
     });

@@ -2,7 +2,8 @@ const router = require("express").Router(),
   multer = require("multer"),
   upload = multer({ dest: "uploads/" }),
   UserSchema = require("../models/User"),
-  { check, validationResult } = require("express-validator");
+  { check, validationResult } = require("express-validator"),
+  mongoose = require("mongoose");
 
 // Register user
 router.post(
@@ -75,11 +76,12 @@ router.get("/user/search", async (req, res) => {
 
 router.post("/user/friends/:userId", async (req, res) => {
   const { userId } = req.params,
-    { token } = req.headers;
+    { token } = req.headers,
+    conversationId = mongoose.Types.ObjectId();
   const sender = await UserSchema.findOne({ _id: token });
   const accepter = await UserSchema.findOne({ _id: userId });
-  sender.friends_ids.push({ friend_id: userId });
-  accepter.friends_ids.push({ friend_id: token });
+  sender.friends_ids.push({ friend_id: userId, conversationId });
+  accepter.friends_ids.push({ friend_id: token, conversationId });
   sender.save();
   accepter.save();
   res.status(200).send({ type: "success" });

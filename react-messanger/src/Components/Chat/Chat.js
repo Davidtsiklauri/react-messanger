@@ -17,6 +17,7 @@ function Chat() {
   const history = useHistory();
   const { id } = useParams();
   const [messages, setMessages] = useState([]);
+  const [isLoaded, setLoading] = useState(false);
   const socketInstance = SocketHelper.getInstance();
 
   useEffect(() => {
@@ -24,7 +25,8 @@ function Chat() {
     axios
       .get(`/api/messages/${id}`)
       .then(({ data }) => data)
-      .then((messages) => setMessages(messages));
+      .then((messages) => setMessages(messages))
+      .then(() => setLoading(true));
   }, [id]);
 
   return (
@@ -65,7 +67,13 @@ function Chat() {
 
           <Grid item sm={12} xs={12} md={7}>
             <Box pr={3}>
-              <CenterContent messages={messages} convId={id} />
+              {isLoaded > 0 && socketInstance.socket && (
+                <CenterContent
+                  messages={messages}
+                  convId={id}
+                  setMessagesFunc={setMessages}
+                />
+              )}
             </Box>
           </Grid>
 

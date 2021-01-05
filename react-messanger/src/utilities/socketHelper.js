@@ -12,23 +12,18 @@ export class SocketHelper {
     return this.socketHelperIntance;
   }
 
-  /**
-   * @private
-   */
   socket = null;
 
   initSocketConnection(connectionId) {
     if (this.socket) {
       this.closeConnection();
-    } else {
-      this.socket = io("http://localhost:3300", {
-        transports: ["websocket"],
-        query: {
-          convId: connectionId,
-        },
-      });
     }
-    this.getMessages().then((data) => console.log(data));
+    this.socket = io("http://localhost:3300", {
+      transports: ["websocket"],
+      query: {
+        convId: connectionId,
+      },
+    });
   }
 
   closeConnection() {
@@ -44,16 +39,6 @@ export class SocketHelper {
 
   sendTypingEvent(event) {
     this.emitEvent("typing");
-  }
-
-  getMessages() {
-    return new Promise((resolve, reject) => {
-      this.socket.on("messages", (data) => {
-        resolve(data);
-      });
-      resolve("dasdsa");
-      resolve("sadsa");
-    });
   }
 
   /**

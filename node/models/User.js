@@ -24,7 +24,7 @@ const user = new userSchema({
       },
       conversationId: {
         type: mongoose.Types.ObjectId,
-        auto: true,
+        required: true,
       },
     },
   ],
